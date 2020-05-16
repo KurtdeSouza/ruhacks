@@ -1,0 +1,28 @@
+import requests
+import json
+import html2text
+
+
+
+api_key = "AIzaSyAj44Q8ACAISYeBZjwCYmHIammEXqywlAY"
+
+location1 = str(input("Enter Origin: "))
+location2 = str(input("Enter Destination: "))
+
+resp = requests.get('https://maps.googleapis.com/maps/api/directions/json?&mode=walking&origin=' + location1 + '&destination=' + location2 + '&key='+ api_key)
+data = resp.json()
+for item in data['routes']:
+    for item2 in item['legs']:
+        for item3 in item2['steps']:
+            print('distance: ' + str(item3['distance']))
+            print('duration: ' + str(item3['duration']))
+            html = item3['html_instructions']
+            h = html2text.HTML2Text()
+            # Ignore converting links from HTML
+            h.ignore_links = True
+            new_direction = []
+            for i in h.handle(item3['html_instructions']):
+                if i != '*':
+                    new_direction.append(i)
+            print("".join(new_direction))
+
