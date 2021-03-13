@@ -4,7 +4,7 @@ import html2text
 
 
 
-api_key = "AIzaSyAj44Q8ACAISYeBZjwCYmHIammEXqywlAY"
+
 
 location1 = str(input("Enter Origin: "))
 location2 = str(input("Enter Destination: "))
